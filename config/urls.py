@@ -19,5 +19,6 @@ from listo import views
 
 urlpatterns = [
     path('', views.checklists_list, name='checklists_list'),
+    path('lists/<id>/', views.checklists_detail, name="checklists_detail"),
     path('admin/', admin.site.urls),
 ]

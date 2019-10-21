@@ -9,14 +9,14 @@
 </head>
 <body>
   <div class="container">
-    <h1>Hello checklists!</h1>
-    <ul>
-    {% for id, checklist in lists.items %}
-      <li>
-        <div><a href="/lists/{{ id }}">{{ checklist.title }}</a></div>        
-      </li>
-    {% endfor %}
-    </ul>
+    <h1>{{ checklist.title }}</h1>
+    <ol>
+      {% for item in checklist.items %}
+        <li>{{ item }}</li>
+      {% endfor %}
+    </ol>
+
+    <p><a href="/">Go home</a></p>
   </div>
 </body>
 </html>

@@ -1,22 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Listo</title>
-  <link rel="stylesheet" href="https://cdn.shoelace.style/1.0.0-beta24/shoelace.css">
-</head>
-<body>
-  <div class="container">
-    <h1>{{ checklist.title }}</h1>
-    <ol>
-      {% for item in checklist.items %}
-        <li>{{ item }}</li>
-      {% endfor %}
-    </ol>
+{% extends "listo/base.html" %}
+{% load markdownify %}
 
-    <p><a href="/">Go home</a></p>
-  </div>
-</body>
-</html>
+{% block title %}Listo - {{ checklist.title }}{% endblock %}
+
+{% block content %}
+  <h3>{{ checklist.title }}</h3>
+  <ol>
+    {% for item in checklist.items %}
+      <li>{{ item|markdownify }}</li>
+    {% endfor %}
+  </ol>
+{% endblock %}

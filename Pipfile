@@ -12,6 +12,7 @@ yapf = "*"
 django = "==2.2.6"
 django-markdownify = "*"
 django-debug-toolbar = "*"
+django-admin-sortable = "*"
 
 [requires]
 python_version = "3.7"

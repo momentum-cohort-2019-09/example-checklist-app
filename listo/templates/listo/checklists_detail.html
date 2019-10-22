@@ -11,7 +11,7 @@
   </p>
   {% endif %}
   <ol>
-    {% for item in checklist.items.all %}
+    {% for item in items.all %}
       <li>{{ item.body|markdownify }}</li>
     {% endfor %}
   </ol>

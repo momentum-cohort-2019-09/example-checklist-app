@@ -12,5 +12,8 @@ def checklists_list(request):
 
 def checklists_detail(request, pk):
     checklist = Checklist.objects.get(pk=pk)
-    return render(request, "listo/checklists_detail.html",
-                  {"checklist": checklist})
+    items = checklist.items
+    return render(request, "listo/checklists_detail.html", {
+        "checklist": checklist,
+        "items": items,
+    })

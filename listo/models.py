@@ -10,3 +10,10 @@ class Checklist(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class ChecklistItem(models.Model):
+    body = models.CharField(max_length=255)
+    checklist = models.ForeignKey(to=Checklist,
+                                  on_delete=models.CASCADE,
+                                  related_name='items')

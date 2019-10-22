@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from listo.data import CHECKLISTS
 from listo.models import Checklist
 
 

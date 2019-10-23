@@ -1,0 +1,12 @@
+{% extends "listo/base.html" %}
+
+{% block content %}
+<h2>Create a new checklist</h2>
+
+<form action="" method="POST">
+{% csrf_token %}
+{{ form }}
+<button type="submit">Create checklist</button>
+</form>
+
+{% endblock %}

@@ -4,9 +4,14 @@
   <ul id="checklists">
     {% for checklist in lists %}
       <li>
-        <div id="list-{{ checklist.id }}"><a href="/lists/{{ checklist.id }}">{{ checklist.title }}</a></div>        
+        <div id="list-{{ checklist.id }}">
+          <a href="{% url 'checklists_detail' pk=checklist.id %}">{{ checklist.title }}</a>
+        </div>        
       </li>
     {% endfor %}
   </ul>
+  <p>
+    <a href="{% url 'checklists_create' %}">Create a new checklist</a>
+  </p>
 {% endblock %}
 

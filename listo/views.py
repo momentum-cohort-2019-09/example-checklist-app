@@ -24,12 +24,7 @@ def checklists_create(request):
     if request.method == "POST":  # form was submitted
         form = ChecklistForm(request.POST)
         if form.is_valid():
-            checklist = Checklist()
-            checklist.title = form.cleaned_data['title']
-            checklist.description = form.cleaned_data['description']
-            # OR checklist = Checklist(**form.cleaned_data)
-
-            checklist.save()
+            checklist = form.save()
             return redirect(to='checklists_list')
     else:
         form = ChecklistForm()

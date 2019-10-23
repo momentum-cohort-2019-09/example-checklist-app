@@ -1,6 +1,9 @@
 from django import forms
+from listo.models import Checklist
 
 
-class ChecklistForm(forms.Form):
-    title = forms.CharField(label="List name", max_length=100)
-    description = forms.CharField(widget=forms.Textarea, required=False)
+class ChecklistForm(forms.ModelForm):
+
+    class Meta:
+        model = Checklist
+        fields = ['title', 'description']

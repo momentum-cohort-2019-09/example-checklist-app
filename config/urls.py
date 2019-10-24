@@ -26,6 +26,9 @@ urlpatterns = [
          views.checklists_delete,
          name="checklists_delete"),
     path('lists/new/', views.checklists_create, name='checklists_create'),
+    path('items/<int:pk>/edit/',
+         views.checklist_items_edit,
+         name="checklist_items_edit"),
     path('admin/', admin.site.urls),
 ]
 

@@ -3,6 +3,12 @@
 
 {% block title %}Listo - {{ checklist.title }}{% endblock %}
 
+{% load static %}
+
+{% block head %}
+<script src="{% static 'js/checklists_detail.js' %}" defer></script>
+{% endblock %}
+
 {% block content %}
   <h3>{{ checklist.title }} 
     <small>
@@ -17,7 +23,14 @@
   {% endif %}
   <ol>
     {% for item in checklist.items.all %}
-      <li class="checklist-item">{{ item.body|markdownify }} <a class="item-edit-link" href="#" data-item-pk="{{ item.pk }}">Edit</a></li>
+      <li class="checklist-item" id="checklist-list-{{ item.pk }}">
+        <span class="checklist-item-body">{{ item.body|markdownify }}</span>
+        <form action="{% url 'checklist_items_edit' pk=item.pk %}" method="POST" class="item-edit-form" id="item-edit-form-{{ item.pk }}">
+          {% csrf_token %}
+          <input class="item-edit-input" type="text" name="body" value="{{ item.body }}">
+        </form>        
+        <a class="item-edit-link" href="#" data-item-pk="{{ item.pk }}">Edit</a>
+      </li>
     {% endfor %}
   </ol>
 

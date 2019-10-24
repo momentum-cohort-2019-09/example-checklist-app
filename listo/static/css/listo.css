@@ -12,3 +12,7 @@
 .checklist-item:hover .item-edit-link {
   display: inline;
 }
+
+.checklist-item .item-edit-form {
+  display: none;
+}

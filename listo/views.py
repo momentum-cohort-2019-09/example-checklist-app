@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from listo.models import Checklist
+from listo.models import Checklist, ChecklistItem
 from listo.forms import ChecklistForm, ChecklistItemForm
 
 
@@ -72,3 +72,12 @@ def checklists_delete(request, pk):
 
     return render(request, 'listo/checklists_delete.html',
                   {"checklist": checklist})
+
+
+def checklist_items_edit(request, pk):
+    checklist_item = get_object_or_404(ChecklistItem, pk=pk)
+    new_body = request.POST.get('body')
+    if new_body:
+        checklist_item.body = new_body
+        checklist_item.save()
+    return redirect(to='checklists_detail', pk=checklist_item.checklist.pk)

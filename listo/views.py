@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from listo.models import Checklist
 from listo.forms import ChecklistForm, ChecklistItemForm
 
@@ -12,7 +12,7 @@ def checklists_list(request):
 
 
 def checklists_detail(request, pk):
-    checklist = Checklist.objects.get(pk=pk)
+    checklist = get_object_or_404(Checklist, pk=pk)
 
     if request.method == "POST":
         checklist_item_form = ChecklistItemForm(request.POST)
@@ -40,8 +40,25 @@ def checklists_create(request):
         form = ChecklistForm(request.POST)
         if form.is_valid():
             checklist = form.save()
-            return redirect(to='checklists_list')
+            return redirect(to=checklist)
     else:
         form = ChecklistForm()
 
     return render(request, "listo/checklists_create.html", {"form": form})
+
+
+def checklists_edit(request, pk):
+    checklist = get_object_or_404(Checklist, pk=pk)
+
+    if request.method == "POST":
+        form = ChecklistForm(instance=checklist, data=request.POST)
+        if form.is_valid():
+            checklist = form.save()
+            return redirect(to=checklist)
+    else:
+        form = ChecklistForm(instance=checklist)
+
+    return render(request, 'listo/checklists_edit.html', {
+        "checklist": checklist,
+        "form": form,
+    })

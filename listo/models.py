@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Checklist(models.Model):
@@ -12,6 +13,9 @@ class Checklist(models.Model):
 
     def item_count(self):
         return self.items.count()
+
+    def get_absolute_url(self):
+        return reverse("checklists_detail", kwargs={"pk": self.pk})
 
     def __str__(self):
         return self.title

@@ -4,7 +4,7 @@
 {% block title %}Listo - {{ checklist.title }}{% endblock %}
 
 {% block content %}
-  <h3>{{ checklist.title }}</h3>
+  <h3>{{ checklist.title }} <small><a href="{% url 'checklists_edit' pk=checklist.pk %}">Edit</a></small></h3>
   {% if checklist.description %}
   <p>
     {{ checklist.description }}

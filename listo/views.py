@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from listo.models import Checklist
-from listo.forms import ChecklistForm
+from listo.forms import ChecklistForm, ChecklistItemForm
 
 
 # Create your views here.
@@ -13,10 +13,25 @@ def checklists_list(request):
 
 def checklists_detail(request, pk):
     checklist = Checklist.objects.get(pk=pk)
-    items = checklist.items
+
+    if request.method == "POST":
+        checklist_item_form = ChecklistItemForm(request.POST)
+        if checklist_item_form.is_valid():
+            new_item = checklist_item_form.save(commit=False)
+            new_item.checklist = checklist
+
+            last_item = checklist.items.order_by('-order')[0]
+            new_item.order = last_item.order + 1
+
+            new_item.save()
+
+            return redirect(to='checklists_detail', pk=pk)
+    else:
+        checklist_item_form = ChecklistItemForm()
+
     return render(request, "listo/checklists_detail.html", {
+        "item_form": checklist_item_form,
         "checklist": checklist,
-        "items": items,
     })
 
 

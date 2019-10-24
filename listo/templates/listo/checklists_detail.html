@@ -11,8 +11,15 @@
   </p>
   {% endif %}
   <ol>
-    {% for item in items.all %}
+    {% for item in checklist.items.all %}
       <li>{{ item.body|markdownify }}</li>
     {% endfor %}
   </ol>
+
+  <h4>Add a new item to your checklist</h4>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ item_form }}
+    <button type="submit">Add item</button>
+  </form>
 {% endblock %}

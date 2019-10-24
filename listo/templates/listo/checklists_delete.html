@@ -1,0 +1,13 @@
+{% extends "listo/base.html" %}
+
+{% block content %}
+<h2>Delete "{{ checklist.title }}"?</h2>
+
+<p>This will permanently delete this checklist.</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <button type="submit" class="button-danger">Delete</button>
+  <a href="{% url 'checklists_list' %}" class="button">Cancel</a>
+</form>
+{% endblock %}

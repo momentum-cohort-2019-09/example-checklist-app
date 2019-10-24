@@ -4,3 +4,11 @@
   margin-bottom: 0.5rem;
   padding-left: 0.5rem;
 }
+
+.item-edit-link {
+  display: none;
+}
+
+.checklist-item:hover .item-edit-link {
+  display: inline;
+}

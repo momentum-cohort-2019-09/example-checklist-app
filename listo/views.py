@@ -62,3 +62,13 @@ def checklists_edit(request, pk):
         "checklist": checklist,
         "form": form,
     })
+
+
+def checklists_delete(request, pk):
+    checklist = get_object_or_404(Checklist, pk=pk)
+    if request.method == "POST":
+        checklist.delete()
+        return redirect(to='checklists_list')
+
+    return render(request, 'listo/checklists_delete.html',
+                  {"checklist": checklist})

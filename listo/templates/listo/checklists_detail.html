@@ -4,7 +4,12 @@
 {% block title %}Listo - {{ checklist.title }}{% endblock %}
 
 {% block content %}
-  <h3>{{ checklist.title }} <small><a href="{% url 'checklists_edit' pk=checklist.pk %}">Edit</a></small></h3>
+  <h3>{{ checklist.title }} 
+    <small>
+      <a href="{% url 'checklists_edit' pk=checklist.pk %}">Edit</a>
+      <a href="{% url 'checklists_delete' pk=checklist.pk %}" class="text-danger">Delete</a>
+    </small>
+  </h3>
   {% if checklist.description %}
   <p>
     {{ checklist.description }}
@@ -12,7 +17,7 @@
   {% endif %}
   <ol>
     {% for item in checklist.items.all %}
-      <li>{{ item.body|markdownify }}</li>
+      <li class="checklist-item">{{ item.body|markdownify }} <a class="item-edit-link" href="#" data-item-pk="{{ item.pk }}">Edit</a></li>
     {% endfor %}
   </ol>
 

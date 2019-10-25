@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from listo.models import Checklist, ChecklistItem
 from listo.forms import ChecklistForm, ChecklistItemForm
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -81,3 +84,17 @@ def checklist_items_edit(request, pk):
         checklist_item.body = new_body
         checklist_item.save()
     return redirect(to='checklists_detail', pk=checklist_item.checklist.pk)
+
+
+@csrf_exempt
+def checklists_reorder(request, pk):
+    checklist = get_object_or_404(Checklist, pk=pk)
+
+    body = request.body.decode("UTF-8")
+    ids = json.loads(body)
+    for order, pk in enumerate(ids):
+        item = checklist.items.get(pk=int(pk))
+        item.order = order
+        item.save()
+
+    return JsonResponse({"ok": True})

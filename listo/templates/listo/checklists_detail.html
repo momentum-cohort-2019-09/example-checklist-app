@@ -6,6 +6,9 @@
 {% load static %}
 
 {% block head %}
+<script>
+let checklistPk = {{ checklist.pk }}
+</script>
 <script src="{% static 'js/checklists_detail.js' %}" defer></script>
 {% endblock %}
 
@@ -14,6 +17,7 @@
     <small>
       <a href="{% url 'checklists_edit' pk=checklist.pk %}">Edit</a>
       <a href="{% url 'checklists_delete' pk=checklist.pk %}" class="text-danger">Delete</a>
+      <a id="checklist-reorder-link" href="#">Reorder</a>
     </small>
   </h3>
   {% if checklist.description %}
@@ -21,9 +25,9 @@
     {{ checklist.description }}
   </p>
   {% endif %}
-  <ol>
+  <ol id="checklist-items">
     {% for item in checklist.items.all %}
-      <li class="checklist-item" id="checklist-list-{{ item.pk }}">
+      <li class="checklist-item" id="checklist-list-{{ item.pk }}" data-pk="{{item.pk}}">
         <span class="checklist-item-body">{{ item.body|markdownify }}</span>
         <form action="{% url 'checklist_items_edit' pk=item.pk %}" method="POST" class="item-edit-form" id="item-edit-form-{{ item.pk }}">
           {% csrf_token %}
